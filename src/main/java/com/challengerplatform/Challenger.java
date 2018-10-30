@@ -33,6 +33,7 @@ public class Challenger {
         this.domain = domain;
     }
 
+    
     public void setOwnerId(String ownerId){
         this.ownerId = ownerId;
     }
@@ -53,31 +54,11 @@ public class Challenger {
         params.put(param, value);
     }
 
-    public String getWidgetHtml() throws Exception {
-        assertParameters();
-        return widgetHtml();
-    }
-
-    public String getWidgetUrl() throws Exception {
-        assertParameters();
-        return protocol() + domain + "/widget?data=" + urlencode(encryptedWidgetData());
-    }
-
     public boolean trackEvent(String event) throws Exception {
         assertParameters();
         return "ok".equalsIgnoreCase(getResponse(trackEventUrl(event)));
     }
-
-    public boolean deleteClient() throws Exception {
-        assertParameters();
-        return "ok".equalsIgnoreCase(getResponse(getClientDeletionUrl()));
-    }
-
-    public String getClientDeletionUrl() throws Exception {
-
-        return protocol() + domain + "/api/v1/deleteClient?data=" + urlencode(encryptedClientDeletionData());
-    }
-
+    
     private String encryptedClientDeletionData() throws Exception {
         StringBuilder json = new StringBuilder("{");
         json.append(jsonString("client_id", clientId));
@@ -99,10 +80,6 @@ public class Challenger {
 
     private String protocol() {
         return (useHTTPS ? "https" : "http") + "://";
-    }
-
-    private String encryptedWidgetData() throws Exception {
-        return encryptWithAES(buildJson(null, null));
     }
 
     private String encryptedEventData(String event, String ownerId) throws Exception {
@@ -203,22 +180,5 @@ public class Challenger {
         }
         rd.close();
         return result.toString();
-    }
-
-    private String widgetHtml() throws Exception {
-        return String.format("<div id=\"_chWidget\"></div>\n" +
-                "<script type=\"text/javascript\">\n" +
-                "\t<!--\n" +
-                "\tvar _chw = _chw || {};\n" +
-                "\t_chw.type = \"iframe\";\n" +
-                "\t_chw.domain = \"%s\";\n" +
-                "\t_chw.data = \"%s\";\n" +
-                "\t(function() {\n" +
-                "\tvar ch = document.createElement(\"script\"); ch.type = \"text/javascript\"; ch.async = true;\n" +
-                "\tch.src = (\"https:\" == document.location.protocol ? \"https://\" : \"http://\") + \"%s/v1/widget/script.js\";\n" +
-                "\tvar s = document.getElementsByTagName(\"script\")[0]; s.parentNode.insertBefore(ch, s);\n" +
-                "\t})();\n" +
-                "\t//-->\n" +
-                "</script>\n", domain, encryptedWidgetData(), domain);
     }
 }
