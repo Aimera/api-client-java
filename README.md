@@ -14,7 +14,7 @@ import ChallengerPlatform.*;
 
 Challenger myChallenger = new Challenger('api.aimera.io');
 
-myChallenger.setOwnerId('{owner_id}'); // Optional
+myChallenger.setOwnerId('{owner_id}');
 myChallenger.setClientId('{client_id}');
 myChallenger.setKey('{secret_key}');
 myChallenger.addParam('multiple', '{multiple}'); // Optional
