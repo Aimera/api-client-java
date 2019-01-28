@@ -1,7 +1,15 @@
 Aimera platform API class and examples for Java
 ===
 
-Due to 256 bit keys usage it may be needed to install Java Cryptography Extension (JCE) Unlimited Strength Jurisdiction Policy Files. For Java version 7 (https://www.oracle.com/technetwork/java/javase/downloads/jce8-download-2133166.html) or version 8 (https://www.oracle.com/technetwork/java/javase/downloads/jce8-download-2133166.html)
+N.B. Due to 256 bit keys usage it may be needed to install Java Cryptography Extension (JCE) Unlimited Strength Jurisdiction Policy Files. For Java version 7 (https://www.oracle.com/technetwork/java/javase/downloads/jce8-download-2133166.html) or version 8 (https://www.oracle.com/technetwork/java/javase/downloads/jce8-download-2133166.html)
+
+In example below:
+ - `api.aimera.io` - is the domain of Aimera API server. For production use api.aimera.io, for testing you may use alpha.aimera.io
+ - `secret_key` - a unique key provided by Aimera to encrypt data exchange
+ - `owner_id` - a unique identifier provided by Aimera
+ - `client_id` - the identifier of the client performing action
+ - `event_id` - the identifier of the corresponding event in Aimera.
+ - `multiple` - for quantifiable challenges (ex. get 1 point for every 1 euro spent). Provide value to multiple points with.
 
 ## Event tracking example
 
